@@ -28,8 +28,13 @@ class Agricultural(models.Model):
 
 
 class PartnershipAgricultural(models.Model):
-    pass
+    farmer = models.ForeignKey('api.Farmer', on_delete=models.CASCADE, related_name='partnership_agricultural')
+    agricultural = models.ForeignKey('api.Farmer', on_delete=models.CASCADE, related_name='partnerships')
+    percent = models.DecimalField( decimal_places=2 )
 
 
 class PartnershipFarm(models.Model):
-    pass
+    farm = models.ForeignKey('api.Farm', on_delete=models.CASCADE, related_name='partners')
+    farmers = models.ForeignKey('api.Farmer', on_delete=models.CASCADE, related_name='partnership_farms', null=True, blank=True)
+    agricultural = models.ForeignKey('api.Agricultural', on_delete=models.CASCADE, related_name='partnership_farms', null=True, blank=True)
+    percent = models.DecimalField(decimal_places=2)
