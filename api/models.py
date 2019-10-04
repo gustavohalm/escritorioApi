@@ -14,8 +14,8 @@ class Farm(models.Model):
 
 
 class Cadesp(models.Model):
-    farmer = models.ForeignKey('api.Farmer', on_delete=models.CASCADE)
-    farm = models.ForeignKey('api.Farm', on_delete=models.CASCADE)
+    farmer = models.ForeignKey('api.Farmer', on_delete=models.CASCADE, related_name='cadesp_farmer')
+    farm = models.ForeignKey('api.Farm', on_delete=models.CASCADE, related_name='cadesp_farm')
     nirf = models.CharField(max_length=25)
     ccir = models.CharField(max_length=25)
     hectar_nirf = models.DecimalField()
@@ -27,3 +27,9 @@ class Agricultural(models.Model):
     cnpj = models.CharField(max_length=16)
 
 
+class PartnershipAgricultural(models.Model):
+    pass
+
+
+class PartnershipFarm(models.Model):
+    pass
