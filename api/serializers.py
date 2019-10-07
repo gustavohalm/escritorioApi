@@ -34,9 +34,10 @@ class PartnershipAgriculturalSerializer(serializers.ModelSerializer):
 
 
 class PartnershipFarmSerializer(serializers.ModelSerializer):
-    farm =  FarmSerializer(many=False)
+    farm = FarmSerializer(many=False)
     agricultural = AgriculturalSerializer(many = False, allow_null=True)
     farmer = FarmerSerializer(many= False, allow_null=True)
+
     class Meta:
         model = models.PartnershipFarm
         fields = '__all__'
