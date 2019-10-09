@@ -35,10 +35,17 @@ class PartnershipAgriculturalSerializer(serializers.ModelSerializer):
 
 class PartnershipFarmSerializer(serializers.ModelSerializer):
     farm = FarmSerializer(many=False)
-    agricultural = AgriculturalSerializer(many = False, allow_null=True)
-    farmer = FarmerSerializer(many= False, allow_null=True)
+    agricultural = AgriculturalSerializer(many=False, allow_null=True)
+    farmer = FarmerSerializer(many=False, allow_null=True)
 
     class Meta:
         model = models.PartnershipFarm
         fields = '__all__'
         read_only_fields = ['id', ]
+
+
+class CadespSerialier(serializers.ModelSerializer):
+    class Meta:
+        model = models.Cadesp
+        fields = '__all__'
+        read_only_fields = ['id',]
