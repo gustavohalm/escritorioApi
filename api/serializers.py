@@ -24,8 +24,16 @@ class AgriculturalSerializer(serializers.ModelSerializer):
 
 
 class PartnershipAgriculturalSerializer(serializers.ModelSerializer):
-    agricultural = AgriculturalSerializer(many=False)
-    farmer = FarmerSerializer(many=False)
+    agricultural = AgriculturalSerializer(read_only=True)
+    farmer = FarmerSerializer(read_only=True)
+
+    class Meta:
+        model = models.PartnershipAgricultural
+        fields = '__all__'
+        read_only_fields = ['id',]
+
+
+class PartnershipAgriculturalWriteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.PartnershipAgricultural
@@ -34,9 +42,17 @@ class PartnershipAgriculturalSerializer(serializers.ModelSerializer):
 
 
 class PartnershipFarmSerializer(serializers.ModelSerializer):
-    farm = FarmSerializer(many=False)
+    farm = FarmSerializer()
     agricultural = AgriculturalSerializer(many=False, allow_null=True)
-    farmer = FarmerSerializer(many=False, allow_null=True)
+    farmer = FarmerSerializer( allow_null=True)
+
+    class Meta:
+        model = models.PartnershipFarm
+        fields = '__all__'
+        read_only_fields = ['id', ]
+
+
+class PartnershipFarmWriteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.PartnershipFarm

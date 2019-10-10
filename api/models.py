@@ -26,6 +26,9 @@ class Agricultural(models.Model):
     name = models.CharField(max_length=128)
     cnpj = models.CharField(max_length=16)
 
+    def __str__(self):
+        return self.name + ' - CNPJ: '+self.cnpj
+
 
 class PartnershipAgricultural(models.Model):
     farmer = models.ForeignKey('api.Farmer', on_delete=models.CASCADE, related_name='partnership_agricultural')

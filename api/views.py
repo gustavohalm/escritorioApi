@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework import  viewsets
 from . import serializers, models
+from . import mixins
 # Create your views here.
 
 
@@ -22,10 +23,12 @@ class AgriculturalView(viewsets.ModelViewSet):
     queryset = models.Agricultural.objects.all()
 
 
-class PartnershipAgriculturalView(viewsets.ModelViewSet):
-    serializer_class = serializers.PartnershipAgriculturalSerializer
-    model = models.PartnershipAgricultural
+class PartnershipAgriculturalView(mixins.ReadWriteSerializerMixin, viewsets.ModelViewSet):
+    read_serializer_class = serializers.PartnershipAgriculturalSerializer
+    write_serializer_class = serializers.PartnershipAgriculturalWriteSerializer
 
+    model = models.PartnershipAgricultural
+    
     def get_queryset(self):
 
         if 'farmer' in self.request.GET:
@@ -39,8 +42,9 @@ class PartnershipAgriculturalView(viewsets.ModelViewSet):
         return models.PartnershipAgricultural.objects.all()
 
 
-class PartnershipFarmView(viewsets.ModelViewSet):
-    serializer_class = serializers.PartnershipFarmSerializer
+class PartnershipFarmView(mixins.ReadWriteSerializerMixin, viewsets.ModelViewSet):
+    read_serializer_class = serializers.PartnershipFarmSerializer
+    write_serializer_class = serializers.PartnershipFarmWriteSerializer
     model = models.PartnershipFarm
 
     def get_queryset(self):
@@ -53,7 +57,7 @@ class PartnershipFarmView(viewsets.ModelViewSet):
             farmer = self.request.GET['farmer']
             return models.PartnershipFarm.objects.filter(farmer=farmer)
 
-        elif 'agricultural' in self.request.GET['agricultural']:
+        elif 'agricultural' in self.request.GET:
             agricultural = self.request.GET['agricultural']
             return models.PartnershipFarm.objects.filter(agricultural=agricultural)
 
